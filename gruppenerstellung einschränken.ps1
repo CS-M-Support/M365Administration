@@ -5,6 +5,7 @@
 $GroupName = "GRP SECURITY GROUP CREATION"
 $AllowGroupCreation = $False
 
+# Verbindung mit AzureAD herstellen
 Connect-AzureAD
 
 $settingsObjectID = (Get-AzureADDirectorySetting | Where-object -Property Displayname -Value "Group.Unified" -EQ).id
@@ -28,3 +29,6 @@ $settingsCopy["GroupCreationAllowedGroupId"] = $GroupName
 Set-AzureADDirectorySetting -Id $settingsObjectID -DirectorySetting $settingsCopy
 
 (Get-AzureADDirectorySetting -Id $settingsObjectID).Values
+
+# Verbindung mit AzureAD trennen
+Disconnect-AzureAD
